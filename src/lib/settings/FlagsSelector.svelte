@@ -5,8 +5,6 @@
   const flags = [
     { name: "None", value: "none" },
     { name: "Aikar's Flags", value: "aikar" },
-    { name: "Paper's Flags", value: "paper" },
-    { name: "Spigot's Flags", value: "spigot" },
     { name: "Velocity & Waterfall", value: "velocity" },
   ];
 </script>
@@ -20,7 +18,7 @@
         <Icon icon="bx:flag" class="text-xl" />
       </div>
     </Select.Trigger>
-    <Select.Content class="mt-2 bg-[#2C2E33]">
+    <Select.Content class="mt-2 bg-[#2C2E33] rounded-sm">
       {#each flags as { name, value }}
         <Select.Item
           {value}

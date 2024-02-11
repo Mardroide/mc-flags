@@ -1,27 +1,29 @@
 <script lang="ts">
-  import { Tabs } from "bits-ui";
-  import Icon from "@iconify/svelte";
+  import { Tabs } from 'bits-ui';
+  import Icon from '@iconify/svelte';
 
   const triggers = [
     {
-      value: "linux / mac",
-      label: "Linux / Mac",
-      icon: "tabler:brand-debian",
-      content: "a",
+      value: 'linux / mac',
+      label: 'Linux / Mac',
+      icon: 'tabler:brand-debian',
+      content: 'a'
     },
     {
-      value: "windows",
-      label: "Windows",
-      icon: "teenyicons:windows-outline",
-      content: "b",
+      value: 'windows',
+      label: 'Windows',
+      icon: 'teenyicons:windows-outline',
+      content: 'b'
     },
     {
-      value: "java",
-      label: "Java",
-      icon: "octicon:command-palette-16",
-      content: "c",
-    },
+      value: 'java',
+      label: 'Java',
+      icon: 'octicon:command-palette-16',
+      content: 'c'
+    }
   ];
+
+  let selected: string = 'linux / mac';
 </script>
 
 <Tabs.Root>
@@ -29,7 +31,13 @@
     class="flex items-center w-fit border-[1px] border-gray-700 bg-[#2C2E33] divide-x-[1px] divide-gray-700 border-b-0"
   >
     {#each triggers as { value, label, icon }}
-      <Tabs.Trigger {value} class="flex items-center gap-2 p-2">
+      <Tabs.Trigger
+        {value}
+        class={`flex items-center gap-2 p-2 ${selected === value ? 'bg-black' : ''}`}
+        on:click={() => {
+          selected = value;
+        }}
+      >
         {#if icon}
           <Icon {icon} class="w-5 h-5" />
         {/if}

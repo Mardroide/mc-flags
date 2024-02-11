@@ -11,7 +11,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "bits-ui": "^0.18.0"
+    "bits-ui": "^0.18.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@iconify/svelte": "^3.1.6",
