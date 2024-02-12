@@ -2,6 +2,7 @@
   import FlagsSelector from './FlagsSelector.svelte';
   import SettingsCheckbox from './SettingsCheckbox.svelte';
   import NameInput from './NameInput.svelte';
+  import RamSelector from './RamSelector.svelte';
 
   const switchs = [
     {
@@ -25,4 +26,5 @@
       <SettingsCheckbox {label} {description} />
     {/each}
   </div>
+  <RamSelector />
 </div>
