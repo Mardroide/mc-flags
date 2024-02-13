@@ -18,7 +18,7 @@
   ];
 </script>
 
-<div class="grid grid-cols-2 gap-8">
+<div class="grid grid-cols-2 gap-8 max-sm:grid-cols-1">
   <NameInput  />
   <FlagsSelector />
   <div class="flex flex-col gap-2">

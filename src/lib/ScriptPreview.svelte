@@ -1,41 +1,44 @@
 <script lang="ts">
   import { Tabs } from 'bits-ui';
   import Icon from '@iconify/svelte';
+  import { content } from '../store/store';
+  import { onDestroy } from 'svelte';
 
   const triggers = [
     {
-      value: 'linux / mac',
       label: 'Linux / Mac',
-      icon: 'tabler:brand-debian',
-      content: 'a'
+      icon: 'tabler:brand-debian'
     },
     {
-      value: 'windows',
       label: 'Windows',
-      icon: 'teenyicons:windows-outline',
-      content: 'b'
+      icon: 'teenyicons:windows-outline'
     },
     {
-      value: 'java',
       label: 'Java',
-      icon: 'octicon:command-palette-16',
-      content: 'c'
+      icon: 'octicon:command-palette-16'
     }
   ];
 
-  let selected: string = 'linux / mac';
+  let selected: string = triggers[0].label.toLowerCase();
+  let previewContent: string;
+
+  const unsubscribe = content.subscribe((value) => {
+    previewContent = value;
+  });
+
+  onDestroy(unsubscribe);
 </script>
 
 <Tabs.Root>
   <Tabs.List
     class="flex items-center w-fit border-[1px] border-gray-700 bg-[#2C2E33] divide-x-[1px] divide-gray-700 border-b-0"
   >
-    {#each triggers as { value, label, icon }}
+    {#each triggers as { label, icon }}
       <Tabs.Trigger
-        {value}
-        class={`flex items-center gap-2 p-2 ${selected === value ? 'bg-black' : ''}`}
+        value={label.toLowerCase()}
+        class={`flex items-center gap-2 p-2 ${selected === label.toLowerCase() ? 'bg-black' : ''}`}
         on:click={() => {
-          selected = value;
+          selected = label.toLowerCase();
         }}
       >
         {#if icon}
@@ -45,9 +48,12 @@
       </Tabs.Trigger>
     {/each}
   </Tabs.List>
-  {#each triggers as { value, content }}
-    <Tabs.Content {value} class="p-2 bg-black border-[1px] border-gray-700">
-      {content}
+  {#each triggers as { label }}
+    <Tabs.Content
+      value={label.toLowerCase()}
+      class="p-2 bg-black border-[1px] border-gray-700"
+    >
+      {previewContent}
     </Tabs.Content>
   {/each}
 </Tabs.Root>
