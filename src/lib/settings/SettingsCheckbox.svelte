@@ -2,30 +2,36 @@
   import { Checkbox, Label } from 'bits-ui';
   import Icon from '@iconify/svelte';
   import { onDestroy } from 'svelte';
-  import { checkboxes } from '../../store/store';
+  import { guiCheckbox, autoStartCheckbox } from '../../store/store';
 
   export let label: string;
   export let description: string;
   let isChecked: boolean = false;
 
-  const unsubscribe = checkboxes.subscribe((value) => {
-    value.autoStart = isChecked;
-    value.gui = isChecked;
+  const unsubscribeGui = guiCheckbox.subscribe((value) => {
+    value.enabled = isChecked;
+  });
+
+  const unsubscribeAutoStart = autoStartCheckbox.subscribe((value) => {
+    value.enabled = isChecked;
   });
 
   const handleCheckedChange = () => {
-    checkboxes.update((value) => {
-      if (label === 'GUI') {
-        value.gui = isChecked;
-      } else if (label === 'Auto-Restart') {
-        value.autoStart = isChecked;
-      }
+    guiCheckbox.update((value) => {
+      value.enabled = isChecked;
+      return value;
+    });
 
+    autoStartCheckbox.update((value) => {
+      value.enabled = isChecked;
       return value;
     });
   };
 
-  onDestroy(unsubscribe);
+  onDestroy(() => {
+    unsubscribeGui();
+    unsubscribeAutoStart();
+  });
 </script>
 
 <div class="flex flex-col gap-1">

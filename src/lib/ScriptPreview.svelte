@@ -1,8 +1,6 @@
 <script lang="ts">
   import { Tabs } from 'bits-ui';
   import Icon from '@iconify/svelte';
-  import { content } from '../store/store';
-  import { onDestroy } from 'svelte';
 
   const triggers = [
     {
@@ -19,14 +17,7 @@
     }
   ];
 
-  let selected: string = triggers[0].label.toLowerCase();
-  let previewContent: string;
-
-  const unsubscribe = content.subscribe((value) => {
-    previewContent = value;
-  });
-
-  onDestroy(unsubscribe);
+  let selected: string = triggers[0].label;
 </script>
 
 <Tabs.Root>
@@ -35,10 +26,10 @@
   >
     {#each triggers as { label, icon }}
       <Tabs.Trigger
-        value={label.toLowerCase()}
-        class={`flex items-center gap-2 p-2 ${selected === label.toLowerCase() ? 'bg-black' : ''}`}
+        value={label}
+        class={`flex items-center gap-2 p-2 ${selected === label ? 'bg-black' : ''}`}
         on:click={() => {
-          selected = label.toLowerCase();
+          selected = label;
         }}
       >
         {#if icon}
@@ -50,10 +41,10 @@
   </Tabs.List>
   {#each triggers as { label }}
     <Tabs.Content
-      value={label.toLowerCase()}
+      value={label}
       class="p-2 bg-black border-[1px] border-gray-700"
     >
-      {previewContent}
+      a
     </Tabs.Content>
   {/each}
 </Tabs.Root>

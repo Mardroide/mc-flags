@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@sveltejs/adapter-vercel": "^5.1.0",
     "bits-ui": "^0.18.0",
     "zod": "^3.22.4"
   },
