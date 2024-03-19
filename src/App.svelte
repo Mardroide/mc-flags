@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Download from './lib/Download.svelte';
-  import Settings from './lib/settings/Settings.svelte';
-  import ScriptPreview from './lib/ScriptPreview.svelte';
+  import Download from './lib/components/Download.svelte';
+  import Settings from './lib/components/Settings.svelte';
+  import ScriptPreview from './lib/components/ScriptPreview.svelte';
 </script>
 
 <main class="mx-auto flex flex-col w-[80%] md:w-[60%] lg:w-[40%] gap-8 text-gray-300">

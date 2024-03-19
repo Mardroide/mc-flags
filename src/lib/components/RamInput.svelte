@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { z } from 'zod';
-  import { serverRam } from '../../store/store';
+  import { serverRam } from '../store/store';
   import { onDestroy } from 'svelte';
 
   let valid: boolean = true;
