@@ -11,9 +11,7 @@
   body,
   html,
   #app {
-    width: 100%;
     height: 100%;
-    margin: 0 auto;
     color: rgba(255, 255, 255, 0.87);
     background-color: #141517;
     font-family: 'Geist', sans-serif;

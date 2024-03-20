@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Download from './lib/components/Download.svelte';
+  import Github from './lib/components/Github.svelte';
   import Settings from './lib/components/Settings.svelte';
   import ScriptPreview from './lib/components/ScriptPreview.svelte';
 </script>
@@ -9,6 +9,6 @@
   <Settings />
   <div class="flex flex-col gap-4">
     <ScriptPreview />
-    <Download />
+    <Github />
   </div>
 </main>

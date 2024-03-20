@@ -1,17 +1,20 @@
 <script lang="ts">
-  import { Select } from "bits-ui";
-  import Icon from "@iconify/svelte";
+  import { Select } from 'bits-ui';
+  import Icon from '@iconify/svelte';
+  import { serverFlags } from '../store/store';
 
   const flags = [
-    { name: "None", value: "none" },
-    { name: "Aikar's Flags", value: "aikar" },
-    { name: "Velocity & Waterfall", value: "velocity" },
+    { name: 'None', value: 'none' },
+    { name: 'Velocity & Waterfall', value: 'velocity' }
   ];
 </script>
 
 <div class="flex flex-col gap-1">
   <p>Flags</p>
-  <Select.Root items={flags}>
+  <Select.Root
+    items={flags}
+    onSelectedChange={(e) => ($serverFlags = e?.value || 'none')}
+  >
     <Select.Trigger class="flex items-center bg-[#2C2E33] p-2 rounded-sm">
       <div class="flex items-center justify-between w-full">
         <Select.Value placeholder="None" />

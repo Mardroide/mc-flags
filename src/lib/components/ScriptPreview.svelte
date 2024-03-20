@@ -1,6 +1,12 @@
 <script lang="ts">
   import { Tabs } from 'bits-ui';
   import Icon from '@iconify/svelte';
+  import {
+    serverJar,
+    serverRam,
+    guiCheckbox,
+    serverFlags
+  } from '../store/store';
 
   const triggers = [
     {
@@ -10,10 +16,6 @@
     {
       label: 'Windows',
       icon: 'teenyicons:windows-outline'
-    },
-    {
-      label: 'Java',
-      icon: 'octicon:command-palette-16'
     }
   ];
 
@@ -28,13 +30,9 @@
       <Tabs.Trigger
         value={label}
         class={`flex items-center gap-2 p-2 ${selected === label ? 'bg-black' : ''}`}
-        on:click={() => {
-          selected = label;
-        }}
+        on:click={() => (selected = label)}
       >
-        {#if icon}
-          <Icon {icon} class="w-5 h-5" />
-        {/if}
+        <Icon {icon} class="w-5 h-5" />
         {label}
       </Tabs.Trigger>
     {/each}
@@ -44,7 +42,21 @@
       value={label}
       class="p-2 bg-black border-[1px] border-gray-700"
     >
-      a
+      <div>
+        {#if label === 'Linux / Mac'}
+          <p>#!/bin/bash</p>
+        {/if}
+
+        java -Xms{$serverRam.amount}M -Xmx{$serverRam.amount}M
+
+        {#if $serverFlags === 'velocity'}
+          -XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions
+          -XX:+ParallelRefProcEnabled -XX:MaxInlineLevel=15
+        {/if}
+
+        -jar {$serverJar.name}
+        {$guiCheckbox ? '' : '--nogui'}
+      </div>
     </Tabs.Content>
   {/each}
 </Tabs.Root>

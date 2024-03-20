@@ -2,37 +2,14 @@
   import Icon from '@iconify/svelte';
   import { z } from 'zod';
   import { serverRam } from '../store/store';
-  import { onDestroy } from 'svelte';
 
   let valid: boolean = true;
-  let amount: number = 1024;
+  let amount: string = '1024';
 
-  const schema = z.number();
+  const schema = z.number().min(500).max(1024 * 24);
 
-  const unsubscribe = serverRam.subscribe((value) => {
-    value.valid = valid;
-    value.amount = amount;
-  });
-
-  const validate = (event: any) => {
-    const inputValue: number = parseInt(event.target.value);
-    const status: boolean = schema.safeParse(inputValue).success;
-
-    if (inputValue < 500) {
-      valid = false;
-      return;
-    }
-
-    serverRam.update((value) => {
-      value.valid = status;
-      value.amount = inputValue;
-      return value;
-    });
-
-    valid = status;
-  };
-
-  onDestroy(unsubscribe);
+  $: $serverRam.valid = valid = schema.safeParse(parseInt(amount)).success;
+  $: $serverRam.amount = amount;
 </script>
 
 <div class="flex flex-col gap-1">
@@ -43,13 +20,12 @@
     <Icon icon="icon-park-outline:disk" class="text-xl" />
     <input
       type="text"
-      value={amount}
       class="w-full bg-transparent p-2 outline-none"
-      on:input={validate}
+      bind:value={amount}
     />
   </div>
   <p class={`text-sm text-red-500 ${valid ? 'hidden' : null}`}>
-    Amount of ram must be expresed in megabytes (MB). Minimum amount recommended.
+    Amount of ram must be expresed in megabytes. Amount recommended is between 500 and 24.576.
   </p>
   <p class="text-sm text-gray-400">
     The amount of ram that the server will have. Minimum amount recommended is
